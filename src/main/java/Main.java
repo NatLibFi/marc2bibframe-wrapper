@@ -90,11 +90,15 @@ public class Main {
         "declare variable $marcxml external; \n" +
         "declare variable $baseuri external; \n" +
         "let $resources := \n" +
-            "for $r in $marcxml \n" +
+            "for $r in $marcxml[@type=\"Bibliographic\" or fn:not(@type)] \n" +
             "let $controlnum := xs:string($r/marcxml:controlfield[@tag eq \"001\"][1]) \n" +
+            "let $holds:= \n" +
+            "  for $hold in $marcxml[fn:string(marcxml:controlfield[@tag=\"004\"])=$controlnum] \n" +
+            "    return $hold \n" +
             "let $httpuri := fn:concat($baseuri , $controlnum) \n" +
-            "let $bibframe :=  marcbib2bibframe:marcbib2bibframe($r,$httpuri) \n" +
-            "let $rdf :=  RDFXMLnested2flat:RDFXMLnested2flat($bibframe,$httpuri) \n" +
+            "let $recordset:= element marcxml:collection{$r,$holds} \n" +
+            "let $bibframe :=  marcbib2bibframe:marcbib2bibframe($recordset,$httpuri) \n" +
+            "let $rdf :=  RDFXMLnested2flat:RDFXMLnested2flat($bibframe,$httpuri,\"false\") \n" +
             "return $rdf \n" +
         "return $resources \n";
         
