@@ -3,7 +3,7 @@ Java wrapper for the Library of Congress [marc2bibframe](https://github.com/lcne
 
 This utility allows running the marc2bibframe utility on large batches of records at a time. Internally, records are processed one at a time and a conversion error in a single record will not stop the whole conversion. Errors are logged in an XML log file that also includes the MARCXML data of problematic records.
 
-For a batch of 10,000 MARC records, memory usage will be approximately 1.3GB and the conversion will take about 1.5 minutes. Larger batch sizes increase memory usage but the throughput (roughly 100 records/second) remains unchanged.
+For a batch of 10,000 MARC records, memory usage will be approximately 1.5GB and the conversion will take about 1.5 minutes. Larger batch sizes increase memory usage but the throughput (roughly 100 records/second) remains unchanged.
 
 # Building
 
