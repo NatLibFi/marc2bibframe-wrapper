@@ -284,7 +284,11 @@ public class Main {
     DOMSource source = new DOMSource(log.getDocumentElement());
     TransformerFactory tf = TransformerFactory.newInstance();
     Transformer t = tf.newTransformer();
-    StreamResult streamResult = new StreamResult(new File(savelog));
+  	StreamResult streamResult;
+  	if (logdir != "") // log directory has been configured
+  		streamResult = new StreamResult(new File(savelog));
+  	else // no log directory set - log to stderr
+  		streamResult = new StreamResult(System.err);
     t.transform(source, streamResult);
     
     // Output XML
