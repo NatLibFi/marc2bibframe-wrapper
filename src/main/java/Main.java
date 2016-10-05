@@ -38,6 +38,11 @@ import net.sf.saxon.s9api.XdmNode;
 public class Main {
     
     public static void main(String[] args) throws Exception  {
+    	if (args.length < 2 || args.length > 4) {
+    		System.err.println("Usage: marc2bibframe-wrapper <path-to-marc2bibframe> <marcxml-file> [baseuri] [logdir]");
+    		System.exit(1);
+    	}
+    	
     	String marc2bibframepath = args[0];
         
         String marcxmluri = args[1];
