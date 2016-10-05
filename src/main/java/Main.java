@@ -38,17 +38,18 @@ import net.sf.saxon.s9api.XdmNode;
 public class Main {
     
     public static void main(String[] args) throws Exception  {
+    	String marc2bibframepath = args[0];
         
-        String marcxmluri = args[0];
+        String marcxmluri = args[1];
         
         String baseuri = "http://example.org";
-        if(args.length > 1 && args[1] != null) {
-            baseuri = args[1];
+        if(args.length > 2 && args[2] != null) {
+            baseuri = args[2];
         }
         
         String logdir = "";
-        if(args.length > 2 && args[2] != null) {
-            logdir = args[2];
+        if(args.length > 3 && args[3] != null) {
+            logdir = args[3];
         }
         String savelog = logdir + new SimpleDateFormat("yyyyMMdd'T'HHmmssmmmmmm").format(Calendar.getInstance().getTime()) + ".log.xml";
         
@@ -82,8 +83,8 @@ public class Main {
         selector.setContextItem(doc);
         
         XQueryCompiler comp = proc.newXQueryCompiler();
-        String query = "import module namespace marcbib2bibframe = \"info:lc/id-modules/marcbib2bibframe#\" at \"../modules/module.MARCXMLBIB-2-BIBFRAME.xqy\"; \n" + 
-        "import module namespace RDFXMLnested2flat = \"info:lc/bf-modules/RDFXMLnested2flat#\" at \"../modules/module.RDFXMLnested-2-flat.xqy\"; \n" +
+        String query = "import module namespace marcbib2bibframe = \"info:lc/id-modules/marcbib2bibframe#\" at \"" + marc2bibframepath + "/modules/module.MARCXMLBIB-2-BIBFRAME.xqy\"; \n" + 
+        "import module namespace RDFXMLnested2flat = \"info:lc/bf-modules/RDFXMLnested2flat#\" at \"" + marc2bibframepath + "/modules/module.RDFXMLnested-2-flat.xqy\"; \n" +
         "declare namespace marcxml       = \"http://www.loc.gov/MARC21/slim\"; \n" + 
         "declare namespace rdf           = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"; \n" + 
         "declare namespace rdfs          = \"http://www.w3.org/2000/01/rdf-schema#\"; \n" + 
