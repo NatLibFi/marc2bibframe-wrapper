@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.ErrorListener;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -289,6 +290,7 @@ public class Main {
     DOMSource source = new DOMSource(log.getDocumentElement());
     TransformerFactory tf = TransformerFactory.newInstance();
     Transformer t = tf.newTransformer();
+    t.setOutputProperty(OutputKeys.INDENT, "yes");
     StreamResult streamResult;
     if (logdir != "") // log directory has been configured
         streamResult = new StreamResult(new File(savelog));
