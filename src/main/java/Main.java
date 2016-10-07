@@ -38,12 +38,12 @@ import net.sf.saxon.s9api.XdmNode;
 public class Main {
     
     public static void main(String[] args) throws Exception  {
-    	if (args.length < 2 || args.length > 4) {
-    		System.err.println("Usage: marc2bibframe-wrapper <path-to-marc2bibframe> <marcxml-file> [baseuri] [logdir]");
-    		System.exit(1);
-    	}
-    	
-    	String marc2bibframepath = args[0];
+        if (args.length < 2 || args.length > 4) {
+            System.err.println("Usage: marc2bibframe-wrapper <path-to-marc2bibframe> <marcxml-file> [baseuri] [logdir]");
+            System.exit(1);
+        }
+        
+        String marc2bibframepath = args[0];
         
         String marcxmluri = args[1];
         
@@ -76,13 +76,13 @@ public class Main {
         
         Document log = dfactory.newDocumentBuilder().newDocument();
         Element logroot = log.createElementNS("info:lc/marc2bibframe/logging#", "log:log");
-		log.appendChild(logroot);
+        log.appendChild(logroot);
         
         XdmNode doc = builder.build(new File(marcxmluri));
         
         XPathCompiler xpath = proc.newXPathCompiler();
         xpath.declareNamespace("", "http://www.loc.gov/MARC21/slim");
- 
+        
         // find all the record elements
         XPathSelector selector = xpath.compile("//record").load();
         selector.setContextItem(doc);
@@ -289,11 +289,11 @@ public class Main {
     DOMSource source = new DOMSource(log.getDocumentElement());
     TransformerFactory tf = TransformerFactory.newInstance();
     Transformer t = tf.newTransformer();
-  	StreamResult streamResult;
-  	if (logdir != "") // log directory has been configured
-  		streamResult = new StreamResult(new File(savelog));
-  	else // no log directory set - log to stderr
-  		streamResult = new StreamResult(System.err);
+    StreamResult streamResult;
+    if (logdir != "") // log directory has been configured
+        streamResult = new StreamResult(new File(savelog));
+    else // no log directory set - log to stderr
+        streamResult = new StreamResult(System.err);
     t.transform(source, streamResult);
     
     // Output XML
