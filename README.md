@@ -13,7 +13,7 @@ Use Maven to create a single JAR with dependencies under `target/`:
 
 # Running
 
-    java -jar marc2bibframe-wrapper-0.0.1-SNAPSHOT.jar \
+    java -jar marc2bibframe-wrapper-0.0.1.jar \
        /path/to/marc2bibframe records.mrcx \ 
        >records-as-bibframe.rdf 2>log.xml
 
